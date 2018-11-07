@@ -15,6 +15,8 @@ ENV_DIR=$3
 
 cd $BUILD_DIR
 
+echo "Build dir for postgresql is ${BUILD_DIR}"
+
 JBOSS_HOME=$BUILD_DIR/.jboss/11.0.0.Final
 
 : "${JBOSS_HOME:?You need to install Wildfly first. JBOSS_HOME environment variable not found.}"
