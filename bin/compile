@@ -49,7 +49,7 @@ $JBOSS_HOME/bin/jboss-cli.sh --connect --command="/subsystem=datasources:install
 
 # 4) install datasource
 echo "-----> install data source ... "
-$JBOSS_HOME/bin/jboss-cli.sh --connect --command="data-source add --name=smartIDDataSource --driver-name=postgresql.jar --jndi-name=java:/smartIDDataSource --driver-class=org.postgresql.Driver --user-name=$PGUSER --password=$PGPASSWORD --connection-url=jdbc:postgresql://$PGHOST:5432/$PGDATABASE"
+$JBOSS_HOME/bin/jboss-cli.sh --connect --command="data-source add --name=smartIDDataSource --driver-name=postgresql-${POSTGRESQL_VERSION}.jar --jndi-name=java:/smartIDDataSource --driver-class=org.postgresql.Driver --user-name=$PGUSER --password=$PGPASSWORD --connection-url=jdbc:postgresql://$PGHOST:5432/$PGDATABASE"
 
 # 5) shutdown
 echo "-----> shutdown WildFly ... "
