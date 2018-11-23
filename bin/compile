@@ -51,7 +51,7 @@ $JBOSS_HOME/bin/jboss-cli.sh --connect --command="/subsystem=datasources:install
 echo "-----> install data source ... "
 echo "-----> export required env vars ... "
 
-for KEY in PGUSER PGPASSWORD PGHOST PGDATABASE; do
+for KEY in PGUSER PGPASSWORD PGHOST PGDATABASE JBOSS_HOME; do
   [ -f $ENV_DIR/$KEY ] && export "$KEY=$(cat $ENV_DIR/$KEY)"
   [ -z "${!KEY}" ] && echo "You didn't set $KEY, and this is required." && exit 1
 done
