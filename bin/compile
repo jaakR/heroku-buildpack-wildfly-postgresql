@@ -65,7 +65,7 @@ $JBOSS_HOME/bin/jboss-cli.sh --connect --command="/subsystem=datasources:install
 echo "-----> install data source ... "
 echo "-----> export required env vars ... "
 
-echo "$(ls /tmp/d20190808-63-166c78p)"
+echo "$(ls $DATABASE_URL)"
 echo $DATABASE_URL
 proto="$(echo $DATABASE_URL | grep :// | sed -e's,^\(.*://\).*,\1,g')"
 # remove the protocol
