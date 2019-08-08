@@ -52,7 +52,7 @@ echo "-----> install data source ... "
 echo "-----> export required env vars ... "
 
 ENV_FILE="${ENV_DIR}/DATABASE_URL}"
-DATABASE_URL="$(cat ENV_FILE)"
+DATABASE_URL="$(cat $ENV_FILE)"
 
 echo $DATABASE_URL
 
