@@ -72,13 +72,15 @@ port="$(echo $host | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9
 # extract the path (if any)
 path="$(echo $url | grep / | cut -d/ -f2-)"
 
-echo "url: $url"
-echo "  proto: $proto"
-echo "  user: $user"
-echo "  pass: $pass"
-echo "  host: $host"
-echo "  port: $port"
-echo "  path: $path"
+PGUSER=$user
+PGPASSWORD=$pass
+PGHOST="${$host}:${port}"
+PGDATABASE=$path
+
+echo "-----> exporting PGUSER ${PGUSER} ... "
+echo "-----> exporting PGPASSWORD ${PGPASSWORD} ... "
+echo "-----> exporting PGHOST ${PGHOST} ... "
+echo "-----> exporting PGDATABASE ${PGDATABASE} ... "
 
 for KEY in PGUSER PGPASSWORD PGHOST PGDATABASE; do
   [ -f $ENV_DIR/$KEY ] && export "$KEY=$(cat $ENV_DIR/$KEY)"
