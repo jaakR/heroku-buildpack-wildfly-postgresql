@@ -74,7 +74,7 @@ path="$(echo $url | grep / | cut -d/ -f2-)"
 
 PGUSER=$user
 PGPASSWORD=$pass
-PGHOST="${$host}:${port}"
+PGHOST=$host
 PGDATABASE=$path
 
 echo "-----> exporting PGUSER ${PGUSER} ... "
