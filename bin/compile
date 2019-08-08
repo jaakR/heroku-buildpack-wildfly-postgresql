@@ -15,6 +15,20 @@ ENV_DIR=$3
 
 cd $BUILD_DIR
 
+export_env_dir() {
+  env_dir=$1
+  whitelist_regex=${2:-'DATABASE_URL'}
+  blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
+  if [ -d "$env_dir" ]; then
+    for e in $(ls $env_dir); do
+      echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
+      export "$e=$(cat $env_dir/$e)"
+      :
+    done
+  fi
+}
+export_env_dir
+
 JBOSS_HOME=$BUILD_DIR/.jboss/wildfly-11.0.0.Final
 
 : "${JBOSS_HOME:?You need to install Wildfly first. JBOSS_HOME environment variable not found.}"
@@ -51,7 +65,8 @@ $JBOSS_HOME/bin/jboss-cli.sh --connect --command="/subsystem=datasources:install
 echo "-----> install data source ... "
 echo "-----> export required env vars ... "
 
-echo "(ls /tmp/d20190808-63-166c78p)"
+echo "$(ls /tmp/d20190808-63-166c78p)"
+echo $DATABASE_URL
 proto="$(echo $DATABASE_URL | grep :// | sed -e's,^\(.*://\).*,\1,g')"
 # remove the protocol
 url="$(echo ${1/$proto/})"
