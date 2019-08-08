@@ -51,11 +51,11 @@ $JBOSS_HOME/bin/jboss-cli.sh --connect --command="/subsystem=datasources:install
 echo "-----> install data source ... "
 echo "-----> export required env vars ... "
 
-ENV_FILE="${ENV_DIR}/DATABASE_URL}"
-DATABASE_URL="$(cat $ENV_FILE)"
 
+echo "$(ls $ENV_DIR)"
+
+DATABASE_URL="$(cat "${ENV_DIR}/DATABASE_URL")"
 echo $DATABASE_URL
-
 proto="$(echo $DATABASE_URL | grep :// | sed -e's,^\(.*://\).*,\1,g')"
 # remove the protocol
 url="$(echo ${1/$proto/})"
