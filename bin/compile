@@ -57,8 +57,8 @@ proto="$(echo $DATABASE_URL | grep :// | sed -e's,^\(.*://\).*,\1,g')"
 # remove the protocol
 url="$(echo ${1/$proto/})"
 # extract the user (if any)
-PGUSER="$(echo $url | grep @ | cut -d@ -f1)"
-PGPASSWORD="$(echo $userpass | grep : | cut -d: -f2)"
+userpass="$(echo $url | grep @ | cut -d@ -f1)"
+pass="$(echo $userpass | grep : | cut -d: -f2)"
 if [ -n "$pass" ]; then
   user="$(echo $userpass | grep : | cut -d: -f1)"
 else
@@ -66,19 +66,19 @@ else
 fi
 
 # extract the host
-PGHOST="$(echo ${url/$user@/} | cut -d/ -f1)"
+host="$(echo ${url/$user@/} | cut -d/ -f1)"
 # by request - try to extract the port
-PGPORT="$(echo $host | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')"
+port="$(echo $host | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')"
 # extract the path (if any)
-PGPATH="$(echo $url | grep / | cut -d/ -f2-)"
+path="$(echo $url | grep / | cut -d/ -f2-)"
 
 echo "url: $url"
 echo "  proto: $proto"
-echo "  user: $PGUSER"
-echo "  pass: $PGPASSWORD"
-echo "  host: $PGHOST"
-echo "  port: $PGPORT"
-echo "  path: $PGPATH"
+echo "  user: $user"
+echo "  pass: $pass"
+echo "  host: $host"
+echo "  port: $port"
+echo "  path: $path"
 
 for KEY in PGUSER PGPASSWORD PGHOST PGDATABASE; do
   [ -f $ENV_DIR/$KEY ] && export "$KEY=$(cat $ENV_DIR/$KEY)"
