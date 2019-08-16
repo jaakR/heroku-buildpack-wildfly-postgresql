@@ -79,10 +79,10 @@ PGPASSWORD=$pass
 PGHOST=$host
 PGDATABASE=$path
 
-echo "-----> exporting PGUSER ${PGUSER} ... "
-echo "-----> exporting PGPASSWORD ${PGPASSWORD} ... "
-echo "-----> exporting PGHOST ${PGHOST} ... "
-echo "-----> exporting PGDATABASE ${PGDATABASE} ... "
+#echo "-----> exporting PGUSER ${PGUSER} ... "
+#echo "-----> exporting PGPASSWORD ${PGPASSWORD} ... "
+#echo "-----> exporting PGHOST ${PGHOST} ... "
+#echo "-----> exporting PGDATABASE ${PGDATABASE} ... "
 
 for KEY in PGUSER PGPASSWORD PGHOST PGDATABASE; do
   [ -f $ENV_DIR/$KEY ] && export "$KEY=$(cat $ENV_DIR/$KEY)"
