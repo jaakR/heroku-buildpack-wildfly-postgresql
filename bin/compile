@@ -89,7 +89,7 @@ for KEY in PGUSER PGPASSWORD PGHOST PGDATABASE; do
   [ -z "${!KEY}" ] && echo "You didn't set $KEY, and this is required." && exit 1
 done
 
-$JBOSS_HOME/bin/jboss-cli.sh --connect --command="data-source add --name=smartIDDataSource --driver-name=postgresql --jndi-name=java:/smartIDDataSource --driver-class=org.postgresql.Driver --user-name=$PGUSER --password=$PGPASSWORD --connection-url=jdbc:postgresql://$PGHOST:5432/$PGDATABASE?useSSL=true&requireSSL=true"
+$JBOSS_HOME/bin/jboss-cli.sh --connect --command="data-source add --name=smartIDDataSource --driver-name=postgresql --jndi-name=java:/smartIDDataSource --driver-class=org.postgresql.Driver --user-name=$PGUSER --password=$PGPASSWORD --connection-url=jdbc:postgresql://$PGHOST:5432/$PGDATABASE?sslmode=require"
 
 # 5) shutdown
 echo "-----> shutdown WildFly ... "
